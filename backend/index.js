@@ -4,6 +4,7 @@ import connectDb from './config/db.js';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import userRoute from './routes/userRoute.js';
 dotenv.config();
 
 connectDb();
@@ -18,6 +19,7 @@ app.use(cookieParser('SECERT'));
 
 app.use(cors({ origin: true, credentials: true }));
 
+app.use('/api/user', userRoute);
 
 app.get('/',(req,res)=>{
     res.send("hello world :)")
