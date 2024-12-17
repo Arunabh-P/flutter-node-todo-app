@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import userRoute from './routes/userRoute.js';
+import { errorHandler } from './middleware/error-middleware.js';
 dotenv.config();
 
 connectDb();
@@ -18,8 +19,8 @@ app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cookieParser('SECERT'));
 
 app.use(cors({ origin: true, credentials: true }));
-
 app.use('/api/user', userRoute);
+app.use(errorHandler);
 
 app.get('/',(req,res)=>{
     res.send("hello world :)")
