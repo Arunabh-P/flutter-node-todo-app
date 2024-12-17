@@ -5,7 +5,7 @@ import { loginUser, registerUser } from '../controller/userController.js';
  const router = express.Router();
 
  router.post('/user-registration', registerUser);
- router.post('/login', loginUser);
+ router.post('/user-login', loginUser);
 
 
 
