@@ -22,7 +22,7 @@ describe('registerUser', () => {
 
     beforeEach(() => {
         resetMocks();
-        User.findOne.mockImplementation(({ email }) => 
+        User.findOne.mockImplementation(({ email }) =>
             Promise.resolve(mockUsers.find(user => user.email === email) || null)
         );
     });
@@ -30,17 +30,17 @@ describe('registerUser', () => {
     it('should throw an error if the email already exists', async () => {
         User.findOne.mockResolvedValueOnce({ email: 'testOne@gmail.com' });
         await expect(registerUser('testOne@gmail.com', 'password'))
-        .rejects
-        .toThrowError('Email already exist');
-         expect(User.findOne).toHaveBeenCalledWith({ email: 'testOne@gmail.com' });
+            .rejects
+            .toThrowError('Email already exist');
+        expect(User.findOne).toHaveBeenCalledWith({ email: 'testOne@gmail.com' });
     });
 
     it('should create a new user if email does not exist', async () => {
         const newUser = { email: 'testThree@gmail.com', password: 'ak4123@df' };
-        User.findOne.mockResolvedValueOnce(null);  
-        bcrypt.hash.mockResolvedValueOnce('hashedPassword'); 
+        User.findOne.mockResolvedValueOnce(null);
+        bcrypt.hash.mockResolvedValueOnce('hashedPassword');
         User.prototype.save.mockResolvedValueOnce(newUser);
-        
+
 
         const result = await registerUser('testThree@gmail.com', 'ak4123@df');
         expect(result).toEqual(newUser);
